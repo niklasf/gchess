@@ -15,22 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtkmm/application.h>
 #include <glibmm/i18n.h>
-#include <iostream>
 
 #include "MainWindow.h"
 
-int main(int argc, char *argv[])
+MainWindow::MainWindow()
 {
-  setlocale(LC_ALL, "");
+  set_title(_("GChess"));
+}
 
-  bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-  textdomain(GETTEXT_PACKAGE);
-
-  Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "com.github.niklasf.gchess");
-
-  MainWindow mainWindow;
-  return app->run(mainWindow);
+MainWindow::~MainWindow()
+{
 }

@@ -6,6 +6,7 @@ AM_CXXFLAGS = \
 bin_PROGRAMS = gchess
 
 gchess_SOURCES = \
-	main.cc
+	main.cc \
+	MainWindow.cc MainWindow.h
 
 gchess_LDADD = $(GCHESS_LIBS)
