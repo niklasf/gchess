@@ -22,6 +22,10 @@
 MainWindow::MainWindow()
 {
   set_title(_("GChess"));
+
+  add(m_chessboardWidget);
+
+  show_all_children();
 }
 
 MainWindow::~MainWindow()

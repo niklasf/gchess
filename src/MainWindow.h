@@ -20,10 +20,15 @@
 
 #include <gtkmm.h>
 
+#include "ChessboardWidget.h"
+
 class MainWindow : public Gtk::Window {
   public:
     MainWindow();
     virtual ~MainWindow();
+
+  protected:
+    ChessboardWidget m_chessboardWidget;
 };
 
 #endif
