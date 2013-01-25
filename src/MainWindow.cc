@@ -23,11 +23,42 @@ MainWindow::MainWindow()
 {
   set_title(_("GChess"));
 
-  add(m_chessboardWidget);
+  add(m_box);
+
+  m_refActionGroup = Gtk::ActionGroup::create();
+
+  m_refActionGroup->add(Gtk::Action::create("MenuGame", _("Game")));
+  m_refActionGroup->add(Gtk::Action::create("Quit", Gtk::Stock::QUIT),
+    sigc::mem_fun(*this, &MainWindow::on_action_game_quit));
+
+  m_refUIManager = Gtk::UIManager::create();
+  m_refUIManager->insert_action_group(m_refActionGroup);
+
+  add_accel_group(m_refUIManager->get_accel_group());
+
+  Glib::ustring ui_info =
+    "<ui>"
+    "  <menubar name='MenuBar'>"
+    "    <menu action='MenuGame'>"
+    "      <menuitem action='Quit' />"
+    "    </menu>"
+    "  </menubar>"
+    "</ui>";
+  m_refUIManager->add_ui_from_string(ui_info);
+
+  Gtk::Widget* menubar = m_refUIManager->get_widget("/MenuBar");
+  m_box.pack_start(*menubar, Gtk::PACK_SHRINK);
+
+  m_box.pack_start(m_chessboardWidget);
 
   show_all_children();
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::on_action_game_quit()
+{
+  hide();
 }

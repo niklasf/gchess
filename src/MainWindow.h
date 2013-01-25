@@ -28,7 +28,13 @@ class MainWindow : public Gtk::Window {
     virtual ~MainWindow();
 
   protected:
+    Gtk::VBox m_box;
     ChessboardWidget m_chessboardWidget;
+
+    Glib::RefPtr<Gtk::ActionGroup> m_refActionGroup;
+    Glib::RefPtr<Gtk::UIManager> m_refUIManager;
+
+    void on_action_game_quit();
 };
 
 #endif
