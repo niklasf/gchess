@@ -59,7 +59,7 @@ bool ChessboardWidget::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
   const int height = get_allocation().get_height();
 
   const int padding = 15;
-  const int border_size = width * 0.05;
+  const int border_size = std::min(width, height) * 0.05;
 
   const int board_size = std::min(width, height) - 2 * (padding + border_size);
   const int board_offset_x = (width - board_size) / 2;
