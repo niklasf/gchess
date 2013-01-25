@@ -35,7 +35,7 @@ bool ChessboardWidget::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
   const int height = get_allocation().get_height();
 
   const int padding = 15;
-  const int border_size = 30;
+  const int border_size = width * 0.05;
 
   const int board_size = std::min(width, height) - 2 * (padding + border_size);
   const int board_offset_x = (width - board_size) / 2;
@@ -92,6 +92,30 @@ bool ChessboardWidget::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
   cr->line_to(board_offset_x + board_size, board_offset_y + board_size);
   cr->line_to(board_offset_x + board_size, board_offset_y);
   cr->stroke();
+
+  // Draw the coordinates on the border.
+  cr->set_source_rgba(0, 0, 0, 0.5);
+  cr->set_font_size(0.6 * border_size);
+  const char *files[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
+  for (int x = 0; x < 8; x++)
+  {
+    Cairo::TextExtents extents;
+    cr->get_text_extents(files[x], extents);
+    cr->move_to(
+      board_offset_x + square_size / 2.0 + x * square_size - extents.width / 2.0 - extents.x_bearing,
+      board_offset_y + board_size + border_size / 2.0 - extents.height / 2.0 - extents.y_bearing);
+    cr->show_text(files[x]);
+  }
+  const char *ranks[] = {"1", "2", "3", "4", "5", "6", "7", "8"};
+  for (int y = 0; y < 8; y++)
+  {
+    Cairo::TextExtents extents;
+    cr->get_text_extents(ranks[y], extents);
+    cr->move_to(
+      board_offset_x - border_size / 2.0 - extents.width / 2.0 - extents.x_bearing,
+      board_offset_y + board_size - square_size / 2.0 - y * square_size - extents.height / 2.0 - extents.y_bearing);
+    cr->show_text(ranks[y]);
+  }
 
   return true;
 }
