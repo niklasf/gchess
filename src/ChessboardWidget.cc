@@ -29,6 +29,30 @@ ChessboardWidget::~ChessboardWidget()
 {
 }
 
+void ChessboardWidget::get_preferred_width_vfunc(int& minimum_width, int& natural_width) const
+{
+  minimum_width = 200;
+  natural_width = 500;
+}
+
+void ChessboardWidget::get_preferred_height_vfunc(int &minimum_height, int& natural_height) const
+{
+  minimum_height = 200;
+  natural_height = 500;
+}
+
+void ChessboardWidget::get_preferred_width_for_height_vfunc(int height, int& minimum_width, int& natural_width) const
+{
+  minimum_width = 200;
+  natural_width = height;
+}
+
+void ChessboardWidget::get_preferred_height_for_width_vfunc(int width, int& minimum_height, int& natural_height) const
+{
+  minimum_height = 200;
+  natural_height = width;
+}
+
 bool ChessboardWidget::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
   const int width = get_allocation().get_width();
